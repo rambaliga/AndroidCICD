@@ -8,4 +8,23 @@ on:
 
 jobs:
   build:
-    runs-on
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Java JDK
+        uses: uses: actions/setup-java@v4.3.0
+        with:
+          java-version: '18'
+          distribution: 'adopt'
+
+      - name: Build with gradle
+        run: ./gradlew build
+
+      - name: Upload a build artifact
+        uses: actions/upload-artifact@v3.2.1
+        with:
+          name: AndroidBuild.apk
+          path: app/build/outputs/app/debug/app-debug.apk
+
